@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Reel Subtitle Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input[type="url"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        input[type="url"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .result.success {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: #2e7d32;
+        }
+
+        .result.error {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            color: #c62828;
+        }
+
+        .download-btn {
+            background: #4caf50;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+        }
+
+        .features {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .features h3 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            padding: 8px 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+        .features li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 دروستکردنی ژێرنووس بۆ ڕیڵی ئینستاگرام</h1>
+        <p class="subtitle">زیادکردنی ژێرنووس بۆ ڕیڵەکانی ئینستاگرام بە وەرگێڕانی عەرەبی</p>
+        
+        <form id="subtitleForm">
+            <div class="input-group">
+                <label for="instagramUrl">بەستەری ڕیڵی ئینستاگرام:</label>
+                <input 
+                    type="url" 
+                    id="instagramUrl" 
+                    name="url" 
+                    placeholder="https://www.instagram.com/reel/..." 
+                    required
+                >
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="includeArabic" name="include_arabic" checked>
+                <label for="includeArabic">زیادکردنی وەرگێڕانی عەرەبی</label>
+            </div>
+            
+            <button type="submit" class="btn" id="processBtn">
+                پڕۆسەکردنی ڤیدیۆ
+            </button>
+        </form>
+        
+        <div id="progress" class="progress" style="display: none;">
+            <div class="spinner"></div>
+            <span id="progressText">چالاککردنی پڕۆسە...</span>
+        </div>
+        
+        <div id="result" class="result" style="display: none;"></div>
+        
+        <div class="features">
+            <h3>تایبەتمەندییەکان</h3>
+            <ul>
+                <li>ناسینی دەنگ بەکاربردنی OpenAI Whisper</li>
+                <li>وەرگێڕانی عەرەبی</li>
+                <li>ژێرنووسەکان بە شێوەیەکی ڕاستەوخۆ لەسەر ڤیدیۆ دابنێ</li>
+                <li>پێویست بە داگرتن نییە - تەنها بەستەر دابنێ</li>
+                <li>کار دەکات لەگەڵ ڕیڵە گشتییەکانی ئینستاگرام</li>
+                <li>ڕووکاری گونجاو بۆ مۆبایل</li>
+            </ul>
+        </div>
+        <footer style="text-align:center; margin-top:40px; color:#444; font-size:16px; background:rgba(255,255,255,0.7); padding:10px 0; border-radius:10px;">
+            (©) All rights reserved to Mohammed Salam
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('subtitleForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const url = formData.get('url');
+            const includeArabic = document.getElementById('includeArabic').checked;
+            
+            // Show progress
+            document.getElementById('progress').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('processBtn').disabled = true;
+            document.getElementById('processBtn').textContent = 'Processing...';
+            
+            try {
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        url: url,
+                        include_arabic: includeArabic
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Hide progress
+                document.getElementById('progress').style.display = 'none';
+                document.getElementById('processBtn').disabled = false;
+                document.getElementById('processBtn').textContent = 'Process Video';
+                
+                // Show result
+                const resultDiv = document.getElementById('result');
+                resultDiv.style.display = 'block';
+                
+                if (data.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <p>✅ ڤیدیۆ بە سەرکەوتوویی پڕۆسە کرا! ${data.message}</p>
+                        <a href="${data.download_url}" class="download-btn" download>
+                            📥 داگرتنی ڤیدیۆی ژێرنووسکراو
+                        </a>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `<p>هەڵە: ${data.error}</p>`;
+                }
+                
+            } catch (error) {
+                // Hide progress
+                document.getElementById('progress').style.display = 'none';
+                document.getElementById('processBtn').disabled = false;
+                document.getElementById('processBtn').textContent = 'Process Video';
+                
+                // Show error
+                const resultDiv = document.getElementById('result');
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        });
+
+        // Update progress text dynamically
+        const progressMessages = [
+            "داگرتنی ڤیدیۆی ئینستاگرام...",
+            "دەرکردنی دەنگ...",
+            "ناسینی وتار...",
+            "وەرگێڕان بۆ عەرەبی...",
+            "زیادکردنی ژێرنووس بۆ ڤیدیۆ...",
+            "تەواوکردن..."
+        ];
+
+        let progressIndex = 0;
+        let progressInterval;
+
+        function startProgressAnimation() {
+            progressIndex = 0;
+            progressInterval = setInterval(() => {
+                document.getElementById('progressText').textContent = progressMessages[progressIndex];
+                progressIndex = (progressIndex + 1) % progressMessages.length;
+            }, 3000);
+        }
+
+        function stopProgressAnimation() {
+            clearInterval(progressInterval);
+        }
+
+        // Start animation when form is submitted
+        document.getElementById('subtitleForm').addEventListener('submit', startProgressAnimation);
+    </script>
+</body>
+</html>

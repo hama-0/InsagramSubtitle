@@ -1,0 +1,70 @@
+# Byte-compiled / optimized / DLL files__pycache__/
+# Ignore large files
+ffmpeg.exe
+cloudflared-windows-amd64.exe
+
+# Common ignores
+__pycache__/
+*.py[cod]
+env/
+venv/
+.venv/
+.env/
+.idea/
+.vscode/
+*.log
+.DS_Store
+Thumbs.db
+
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# mypy
+.mypy_cache/
+
+# Pytest
+.pytest_cache/
+
+# Logs
+*.log
+
+# SQLite
+*.sqlite3
+*.db
+
+# Jupyter
+.ipynb_checkpoints
+
+# macOS / Linux / Windows system files
+.DS_Store
+Thumbs.db
+ffmpeg.exe
+cloudflared-windows-amd64.exe
