@@ -1,5 +1,2 @@
-echo "*.py linguist-detectable=true" > .gitattributes
-echo "*.html linguist-detectable=false" >> .gitattributes
-git add .gitattributes
-git commit -m "Force GitHub to detect Python"
-git push origin main
+*.py linguist-language=Python
+*.html linguist-language=HTML
