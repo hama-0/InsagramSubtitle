@@ -24,5 +24,5 @@ The server burns the subtitles into the video.
 The user can download the final video.
 
 i have used cloudflare tunnel to host the website just by using my pc as
-a server and cloudflare give you a domain name and make it reachable across internet
+a server and cloudflare give you a domain name and make it reachable across internet.
  the command to host the web .\cloudflared-windows-amd64.exe tunnel --url http://localhost:5000
